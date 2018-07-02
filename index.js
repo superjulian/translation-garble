@@ -30,11 +30,8 @@ function garble (text, times = 30, recipient){
         });
     }
 }   
-/*app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
-})*/
 app.get('/', function (req, res) {
-    res.send("Hello");
+    res.sendFile(__dirname + '/index.html');
 })
 app.post('/', function (req, res) {
         console.log (req.body);
