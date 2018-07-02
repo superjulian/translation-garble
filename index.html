@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Text Garbler</title>
+        <style>
+* {
+    box-sizing: border-box;
+}
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        </style>   
+    </head>
+    <body>
+        <p>Enter some text and hit submit to see it get garbled:</p>
+        <p id="output"></p>
+        <div class="container">
+            <form action="/action_page.php">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="Rounds of translation">Rounds of translation</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="count" name="count">
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                            <option value=9>9</option>
+                            <option value=10>10</option>
+                            <option value=11>11</option>
+                            <option value=12>12</option>
+                            <option value=13>13</option>
+                            <option value=14>14</option>
+                            <option value=15>15</option>
+                            <option value=16>16</option>
+                            <option value=17>17</option>
+                            <option value=18>18</option>
+                            <option value=19>19</option>
+                            <option value=20>20</option>
+                            <option value=21>21</option>
+                            <option value=22>22</option>
+                            <option value=23>23</option>
+                            <option value=24>24</option>
+                            <option value=25>25</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="text">Text</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="text" name="text" placeholder="Write something.." style="height:200px"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="button" value="Submit" onClick=sendStuff()>
+                </div>
+            </form>
+        </div>
+        <script>
+            function sendStuff(){ 
+                var toGarble={};
+                document.getElementById("output").innerHTML = "...";
+                toGarble.text = document.getElementById("text").value;
+                toGarble.count = document.getElementById("count").value;
+                var xml = new XMLHttpRequest;
+                xml.open("POST", "/");
+                xml.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xml.onreadystatechange = function() {//Call a function when the state changes.
+                    if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                        console.log(xml.responseText);
+                        document.getElementById("output").innerHTML = xml.responseText;
+                    }
+                }
+                xml.send(JSON.stringify(toGarble));
+            } 
+        </script>
+    </body>
+</html>
+
