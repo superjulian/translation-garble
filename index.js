@@ -41,5 +41,6 @@ app.post('/', function (req, res) {
         console.log("begining garble on: " + req.body.text);
         garble (req.body.text, req.body.count , res);
 })
-app.listen(5000, () => console.log('Translator listening on port 5000!'))
+app.listen(process.env.PORT || 5000)
+//app.listen(5000, () => console.log('Translator listening on port 5000!'))
 //garble(text, 3)
